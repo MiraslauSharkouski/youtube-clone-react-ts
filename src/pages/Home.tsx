@@ -1,4 +1,33 @@
+import { useEffect, useState } from "react";
+import VideoCard from "../components/VideoCard";
+import { useYouTubeAPI } from "../hooks/useYouTubeAPI";
+import SkeletonLoader from "../components/SkeletonLoader";
+
 const Home = () => {
-  return <div>Главная страница</div>;
+  const { search, loading, error } = useYouTubeAPI();
+  const [videos, setVideos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchPopularVideos = async () => {
+      const results = await search("popular");
+      setVideos(results.videos);
+    };
+
+    fetchPopularVideos();
+  }, []);
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h2>Популярные видео</h2>
+      {loading && <SkeletonLoader />}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {videos.map((video) => (
+          <VideoCard key={video.id} video={video} />
+        ))}
+      </div>
+    </div>
+  );
 };
+
 export default Home;
