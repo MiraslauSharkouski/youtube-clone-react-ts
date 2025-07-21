@@ -10,9 +10,36 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/video/:id" element={<VideoPage />} />
-        <Route path="/channel/:id" element={<ChannelPage />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route
+          path="/video/:id"
+          element={
+            <VideoPage
+              params={{
+                id: "",
+              }}
+            />
+          }
+        />
+        <Route
+          path="/channel/:id"
+          element={
+            <ChannelPage
+              params={{
+                id: "",
+              }}
+            />
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <SearchPage
+              params={{
+                id: "",
+              }}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
