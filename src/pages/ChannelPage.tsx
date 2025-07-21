@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import VideoCard from "../components/VideoCard";
 import { useYouTubeAPI } from "../hooks/useYouTubeAPI";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const ChannelPage = () => {
   const { id } = useParams<{ id: string }>();
