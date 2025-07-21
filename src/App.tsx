@@ -1,45 +1,57 @@
 // src/App.tsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import VideoPage from "./pages/VideoPage";
-import ChannelPage from "./pages/ChannelPage";
-import SearchPage from "./pages/SearchPage";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  lazy,
+  Suspense,
+} from "react-router-dom";
+import { SkeletonLoader } from "./components";
+
+// 📦 Lazy-загрузка страниц
+const Home = lazy(() => import("./pages/Home"));
+const VideoPage = lazy(() => import("./pages/VideoPage"));
+const ChannelPage = lazy(() => import("./pages/ChannelPage"));
+const SearchPage = lazy(() => import("./pages/SearchPage"));
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<SkeletonLoader />}>
+              <Home />
+            </Suspense>
+          }
+        />
         <Route
           path="/video/:id"
           element={
-            <VideoPage
-              params={{
-                id: "",
-              }}
-            />
+            <Suspense fallback={<SkeletonLoader />}>
+              <VideoPage />
+            </Suspense>
           }
         />
         <Route
           path="/channel/:id"
           element={
-            <ChannelPage
-              params={{
-                id: "",
-              }}
-            />
+            <Suspense fallback={<SkeletonLoader />}>
+              <ChannelPage />
+            </Suspense>
           }
         />
         <Route
           path="/search"
           element={
-            <SearchPage
-              params={{
-                id: "",
-              }}
-            />
+            <Suspense fallback={<SkeletonLoader />}>
+              <SearchPage />
+            </Suspense>
           }
         />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
