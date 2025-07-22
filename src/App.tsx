@@ -3,9 +3,8 @@ import {
   Routes,
   Route,
   Navigate,
-  lazy,
-  Suspense,
 } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import SkeletonLoader from "./components/SkeletonLoader";
 
 // 📦 Lazy-загрузка страниц

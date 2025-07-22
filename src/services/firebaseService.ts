@@ -17,6 +17,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { Video } from "../types";
 
 // 🔑 Firebase config (замените на свой из Firebase Console)
 const firebaseConfig = {
@@ -91,6 +92,32 @@ const onAuthChange = (callback: (user: User | null) => void) => {
   onAuthStateChanged(auth, callback);
 };
 
+// Добавление видео в избранное
+const addToFavorites = async (userId: string, video: Video) => {
+  const favoritesRef = collection(db, "users", userId, "favorites");
+  await addDoc(favoritesRef, {
+    ...video,
+    timestamp: new Date(),
+  });
+};
+
+// Удаление из избранного
+const removeFromFavorites = async (userId: string, videoId: string) => {
+  const favoritesRef = collection(db, "users", userId, "favorites");
+  const q = query(favoritesRef, where("id", "==", videoId));
+  const snapshot = await getDocs(q);
+  snapshot.forEach(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
+};
+
+// Получение избранного
+const getFavorites = async (userId: string): Promise<Video[]> => {
+  const favoritesRef = collection(db, "users", userId, "favorites");
+  const snapshot = await getDocs(favoritesRef);
+  return snapshot.docs.map((doc) => doc.data() as Video);
+};
+
 export {
   auth,
   db,
@@ -99,4 +126,7 @@ export {
   onAuthChange,
   addComment,
   getCommentsByVideoId,
+  addToFavorites,
+  removeFromFavorites,
+  getFavorites,
 };
