@@ -89,7 +89,7 @@ const deleteComment = async (commentId: string) => {
 
 // 📦 Подписка на изменения авторизации
 const onAuthChange = (callback: (user: User | null) => void) => {
-  onAuthStateChanged(auth, callback);
+  return onAuthStateChanged(auth, callback);
 };
 
 // Добавление видео в избранное
@@ -124,6 +124,7 @@ export {
   signInWithGoogle,
   logout,
   onAuthChange,
+  deleteComment,
   addComment,
   getCommentsByVideoId,
   addToFavorites,

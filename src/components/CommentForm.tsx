@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Button, Input, Form } from "antd";
 
 interface CommentFormProps {
-  videoId: string;
   onAddComment: (text: string) => void;
-  user: { displayName: string } | null;
+  user: {
+    displayName: string | null;
+    photoURL?: string | null;
+  } | null;
 }
 
-const CommentForm = ({ videoId, onAddComment, user }: CommentFormProps) => {
+const CommentForm = ({ onAddComment, user }: CommentFormProps) => {
   const [text, setText] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {

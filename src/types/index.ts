@@ -3,8 +3,8 @@ export interface Video {
   title: string;
   description?: string;
   thumbnail: string;
-  channel: string;
-  channelId: string;
+  channel?: string;
+  channelId?: string;
   views?: string;
   publishedAt?: string;
 }
