@@ -1,18 +1,12 @@
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-const BASE_URL = "https://www.googleapis.com/youtube/v3 ";
-
-const youtubeApi = axios.create({
-  baseURL: BASE_URL,
-  params: {
-    key: API_KEY,
-  },
-});
+// 🔁 Все запросы идут через ваш Firebase Proxy
+const PROXY_URL = "http://localhost:5002/clone-e2514/us-central1/youtubeProxy";
 
 export const search = async (query: string) => {
-  const response = await youtubeApi.get("/search", {
+  const response = await axios.get(PROXY_URL, {
     params: {
+      endpoint: "search",
       q: query,
       part: "snippet",
       type: "video,channel",
@@ -23,28 +17,31 @@ export const search = async (query: string) => {
 };
 
 export const getVideo = async (videoId: string) => {
-  const response = await youtubeApi.get("/videos", {
+  const response = await axios.get(PROXY_URL, {
     params: {
-      part: "snippet,contentDetails,statistics",
+      endpoint: "videos", // ← передаётся в прокси
       id: videoId,
+      part: "snippet,contentDetails,statistics",
     },
   });
   return response.data.items[0];
 };
 
 export const getChannel = async (channelId: string) => {
-  const response = await youtubeApi.get("/channels", {
+  const response = await axios.get(PROXY_URL, {
     params: {
-      part: "snippet,statistics",
+      endpoint: "channels",
       id: channelId,
+      part: "snippet,statistics",
     },
   });
   return response.data.items[0];
 };
 
 export const getChannelVideos = async (channelId: string) => {
-  const response = await youtubeApi.get("/search", {
+  const response = await axios.get(PROXY_URL, {
     params: {
+      endpoint: "search",
       channelId,
       part: "snippet",
       type: "video",

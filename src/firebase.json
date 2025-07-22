@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "main": "lib/index.js",
+    "source": "functions"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5002
+    },
+    "hub": {
+      "port": 4500
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
