@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
+import AuthButton from "./AuthButton";
 
 const { Header } = Layout;
 
@@ -24,6 +25,7 @@ const Navbar = () => {
           <Link to="/search">Поиск</Link>
         </Menu.Item>
       </Menu>
+      <AuthButton onLogin={() => {}} onLogout={() => {}} />
     </Header>
   );
 };

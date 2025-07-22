@@ -62,7 +62,11 @@ const VideoPage = () => {
           <p>{video.description}</p>
           <h3>Комментарии</h3>
           {user ? (
-            <CommentForm videoId={id!} onAddComment={handleAddComment} />
+            <CommentForm
+              videoId={id!}
+              onAddComment={handleAddComment}
+              user={user}
+            />
           ) : (
             <p>Войдите, чтобы оставить комментарий</p>
           )}

@@ -4,18 +4,23 @@ import { Button, Input, Form } from "antd";
 interface CommentFormProps {
   videoId: string;
   onAddComment: (text: string) => void;
+  user: { displayName: string } | null;
 }
 
-const CommentForm = ({ videoId, onAddComment }: CommentFormProps) => {
+const CommentForm = ({ videoId, onAddComment, user }: CommentFormProps) => {
   const [text, setText] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (text.trim()) {
+    if (text.trim() && user) {
       onAddComment(text);
       setText("");
     }
   };
+
+  if (!user) {
+    return <p>Войдите, чтобы оставить комментарий</p>;
+  }
 
   return (
     <Form onSubmitCapture={handleSubmit} style={{ marginBottom: 20 }}>

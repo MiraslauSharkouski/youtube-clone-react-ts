@@ -1,4 +1,3 @@
-// src/App.tsx
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,7 +6,7 @@ import {
   lazy,
   Suspense,
 } from "react-router-dom";
-import { SkeletonLoader } from "./components";
+import SkeletonLoader from "./components/SkeletonLoader";
 
 // 📦 Lazy-загрузка страниц
 const Home = lazy(() => import("./pages/Home"));
